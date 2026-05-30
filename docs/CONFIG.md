@@ -10,8 +10,8 @@ The file is named `.path-panda.json` and supports comments and trailing commas. 
 
 ```
 {
-  // You can remove this example pattern and add your own.
   "patterns": [
+    // You can remove this example pattern and add your own.
     {
       "name": "Path Panda",
       "pattern": "*",

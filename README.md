@@ -1,6 +1,6 @@
 # Path Panda
 
-Path Panda shows one or more status bar indicators when the active editor file path matches user-defined patterns. The indicators help you confirm which path group the current file belongs to without polling or scanning all open files.
+Path Panda shows status bar indicators based on the active editor file path. Configure patterns in the generated `.path-panda.json` file and open it anytime via the Command Palette using "Path Panda: Open Config".
 
 ## Features
 
