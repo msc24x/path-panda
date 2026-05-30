@@ -13,7 +13,7 @@
 		"url": "https://github.com/msc24x/path-panda/issues"
 	},
 	"homepage": "https://github.com/msc24x/path-panda#readme",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.120.0"
 	},
