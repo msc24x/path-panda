@@ -1,3 +1,5 @@
+![](/images/banner.jpg)
+
 # Path Panda
 
 Path Panda shows status bar indicators based on the active editor file path.
