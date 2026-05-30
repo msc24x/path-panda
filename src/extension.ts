@@ -15,7 +15,7 @@ const DEFAULT_CONFIG = `{
 			"match_whole_word": true,
 			"use_regex": false,
 			"emoji": "🐼",
-			"color": "#ffffff",
+			"color": "statusBar.foreground",
 			"background_color": "statusBarItem.prominentBackground"
 		}
 	]
@@ -28,6 +28,14 @@ const ALLOWED_BACKGROUND_TOKENS = new Set([
 	"statusBarItem.prominentBackground",
 	"statusBarItem.remoteBackground",
 	"statusBarItem.offlineBackground",
+]);
+const ALLOWED_FOREGROUND_TOKENS = new Set([
+	"statusBar.foreground",
+	"statusBarItem.errorForeground",
+	"statusBarItem.warningForeground",
+	"statusBarItem.prominentForeground",
+	"statusBarItem.remoteForeground",
+	"statusBarItem.offlineForeground",
 ]);
 
 // This method is called when your extension is activated
@@ -175,12 +183,15 @@ export async function activate(context: vscode.ExtensionContext) {
 			const name =
 				typeof matched.name === "string" ? matched.name.trim() : "";
 			const label = [emoji, name].filter(Boolean).join(" ").trim();
-			const color =
+			const rawColor =
 				typeof matched.color === "string" ? matched.color.trim() : "";
-			const backgroundToken =
+			const color = rawColor || "statusBar.foreground";
+			const rawBackground =
 				typeof matched.background_color === "string"
 					? matched.background_color.trim()
 					: "";
+			const backgroundToken =
+				rawBackground || "statusBarItem.prominentBackground";
 			const statusItem = vscode.window.createStatusBarItem(
 				vscode.StatusBarAlignment.Left,
 				100 - index,
@@ -188,25 +199,23 @@ export async function activate(context: vscode.ExtensionContext) {
 			statusItem.name = "Path Panda";
 			statusItem.text = label || "Path Panda";
 			statusItem.tooltip = filePath;
-			if (color) {
-				if (HEX_COLOR_PATTERN.test(color)) {
-					statusItem.color = color;
-				} else {
-					logInfo(
-						`Ignored invalid color "${color}" for pattern "${name || "(unnamed)"}".`,
-					);
-				}
+			if (HEX_COLOR_PATTERN.test(color)) {
+				statusItem.color = color;
+			} else if (ALLOWED_FOREGROUND_TOKENS.has(color)) {
+				statusItem.color = new vscode.ThemeColor(color);
+			} else {
+				logInfo(
+					`Ignored invalid color "${rawColor}" for pattern "${name || "(unnamed)"}".`,
+				);
 			}
-			if (backgroundToken) {
-				if (ALLOWED_BACKGROUND_TOKENS.has(backgroundToken)) {
-					statusItem.backgroundColor = new vscode.ThemeColor(
-						backgroundToken,
-					);
-				} else {
-					logInfo(
-						`Ignored invalid background_color "${backgroundToken}" for pattern "${name || "(unnamed)"}".`,
-					);
-				}
+			if (ALLOWED_BACKGROUND_TOKENS.has(backgroundToken)) {
+				statusItem.backgroundColor = new vscode.ThemeColor(
+					backgroundToken,
+				);
+			} else {
+				logInfo(
+					`Ignored invalid background_color "${rawBackground}" for pattern "${name || "(unnamed)"}".`,
+				);
 			}
 			statusItem.command = "path-panda.openConfig";
 			statusItem.show();

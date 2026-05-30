@@ -19,7 +19,7 @@ The file is named `.path-panda.json` and supports comments and trailing commas. 
       "match_whole_word": true,
       "use_regex": false,
       "emoji": "🐼",
-      "color": "#ffffff",
+      "color": "statusBar.foreground",
       "background_color": "statusBarItem.prominentBackground"
     }
   ]
@@ -34,12 +34,23 @@ The file is named `.path-panda.json` and supports comments and trailing commas. 
 - `match_whole_word` (boolean, default `true`): When true, only whole-word matches are allowed.
 - `use_regex` (boolean, default `false`): When true, `pattern` is treated as a regular expression.
 - `emoji` (string): Any emoji or short text label to prepend to the name.
-- `color` (string): Hex color for the text. Valid forms: `#rgb`, `#rrggbb`, `#rrggbbaa`.
+- `color` (string): Text color. Hex value (`#rgb`, `#rrggbb`, `#rrggbbaa`) or a VS Code status bar foreground theme token. Defaults to `statusBar.foreground`.
 - `background_color` (string): Optional status bar background theme token. See the allowed values below.
+
+## Foreground color tokens
+
+When using a theme token for `color`, choose from:
+
+- `statusBar.foreground`
+- `statusBarItem.errorForeground`
+- `statusBarItem.warningForeground`
+- `statusBarItem.prominentForeground`
+- `statusBarItem.remoteForeground`
+- `statusBarItem.offlineForeground`
 
 ## Background color tokens
 
-VS Code does not allow arbitrary hex colors for status bar backgrounds. Use one of these theme tokens:
+`background_color` defaults to `statusBarItem.prominentBackground` when omitted. If provided, use one of these theme tokens:
 
 - `statusBarItem.prominentBackground`
 - `statusBarItem.warningBackground`

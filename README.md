@@ -27,14 +27,14 @@ Example configuration:
       "match_whole_word": true,
       "use_regex": false,
       "emoji": "🐼",
-      "color": "#ffffff",
+      "color": "statusBar.foreground",
       "background_color": "statusBarItem.prominentBackground"
     }
   ]
 }
 ```
 
-For all fields and allowed background tokens, see [docs/CONFIG.md](docs/CONFIG.md).
+For all fields, allowed foreground tokens, and background tokens, see [docs/CONFIG.md](docs/CONFIG.md).
 When the config file is open, VS Code provides validation and completions from the built-in schema.
 
 ## Commands

@@ -38,14 +38,32 @@
 						"description": "Emoji or short label shown before the name."
 					},
 					"color": {
-						"type": "string",
-						"description": "Hex text color. Examples: #fff, #ffffff, #ffffffff.",
-						"format": "color-hex",
-						"pattern": "^$|^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+						"description": "Text color. Hex value or a VS Code status bar foreground theme token. Defaults to statusBar.foreground.",
+						"default": "statusBar.foreground",
+						"oneOf": [
+							{
+								"type": "string",
+								"description": "Hex text color. Examples: #fff, #ffffff, #ffffffff.",
+								"format": "color-hex",
+								"pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+							},
+							{
+								"type": "string",
+								"description": "VS Code status bar foreground theme token.",
+								"enum": [
+									"statusBar.foreground",
+									"statusBarItem.errorForeground",
+									"statusBarItem.warningForeground",
+									"statusBarItem.prominentForeground",
+									"statusBarItem.remoteForeground",
+									"statusBarItem.offlineForeground"
+								]
+							}
+						]
 					},
 					"background_color": {
 						"type": "string",
-						"description": "Optional VS Code status bar background token.",
+						"description": "VS Code status bar background token. Defaults to statusBarItem.prominentBackground.",
 						"enum": [
 							"",
 							"statusBarItem.prominentBackground",
