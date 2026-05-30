@@ -1,14 +1,23 @@
 # Path Panda
 
-Path Panda shows status bar indicators based on the active editor file path. Configure patterns in the generated `.path-panda.json` file and open it anytime via the Command Palette using "Path Panda: Open Config".
+Path Panda shows status bar indicators based on the active editor file path.
+
+## How to Use
+
+1. [Install Path Panda](https://marketplace.visualstudio.com/items?itemName=msc24x.path-panda) from the VS Code Marketplace.
+2. Open the config file to customize patterns:
+    - Run the command **"Path Panda: Open Config"** from the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+    - Or click any Path Panda status bar indicator (if present) at the bottom left.
+3. Edit patterns to match file paths and see the indicators update instantly.
+
+For detailed configuration options, see [docs/CONFIG.md](docs/CONFIG.md).
 
 ## Features
 
 - Status bar indicators based on the active editor file path.
 - Multiple indicators when multiple patterns match.
-- Config file created automatically in extension global storage.
-- Click any indicator to open the configuration file.
-- Supports JSON with comments and trailing commas.
+- Pattern matching with `match_case`, `match_whole_word`, and `use_regex` options.
+- Customize foreground and background colors via hex values or VS Code theme tokens.
 
 ## Configuration
 
