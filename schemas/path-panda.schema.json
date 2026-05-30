@@ -1,0 +1,49 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Path Panda Configuration",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"patterns": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Label shown next to the emoji in the status bar."
+					},
+					"pattern": {
+						"type": "string",
+						"description": "Regular expression matched against the full file path. Use '*' to match all files."
+					},
+					"emoji": {
+						"type": "string",
+						"description": "Emoji or short label shown before the name."
+					},
+					"color": {
+						"type": "string",
+						"description": "Hex text color. Examples: #fff, #ffffff, #ffffffff.",
+						"pattern": "^$|^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+					},
+					"background_color": {
+						"type": "string",
+						"description": "Optional VS Code status bar background token.",
+						"enum": [
+							"",
+							"statusBarItem.prominentBackground",
+							"statusBarItem.warningBackground",
+							"statusBarItem.errorBackground",
+							"statusBarItem.remoteBackground",
+							"statusBarItem.offlineBackground"
+						]
+					}
+				},
+				"required": [
+					"pattern"
+				]
+			}
+		}
+	}
+}

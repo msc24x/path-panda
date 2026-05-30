@@ -1,0 +1,53 @@
+{
+	"name": "path-panda",
+	"displayName": "Path Panda",
+	"description": "Match active editor file paths against configured patterns.",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.120.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "path-panda.openConfig",
+				"title": "Path Panda: Open Config"
+			}
+		],
+		"jsonValidation": [
+			{
+				"fileMatch": [
+					"**/.path-panda.json"
+				],
+				"url": "./schemas/path-panda.schema.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"dependencies": {
+		"jsonc-parser": "^3.3.1"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.120.0",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "22.x",
+		"typescript-eslint": "^8.56.1",
+		"eslint": "^9.39.3",
+		"typescript": "^5.9.3",
+		"@vscode/test-cli": "^0.0.12",
+		"@vscode/test-electron": "^2.5.2"
+	}
+}
