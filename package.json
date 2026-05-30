@@ -1,7 +1,18 @@
 {
 	"name": "path-panda",
 	"displayName": "Path Panda",
+	"icon": "images/path-panda.jpg",
 	"description": "Match active editor file paths against configured patterns.",
+	"publisher": "msc24x",
+	"author": "Maninderpal Singh",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/msc24x/path-panda.git"
+	},
+	"bugs": {
+		"url": "https://github.com/msc24x/path-panda/issues"
+	},
+	"homepage": "https://github.com/msc24x/path-panda#readme",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.120.0"
