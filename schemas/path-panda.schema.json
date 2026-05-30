@@ -16,7 +16,22 @@
 					},
 					"pattern": {
 						"type": "string",
-						"description": "Regular expression matched against the full file path. Use '*' to match all files."
+						"description": "Pattern matched against the full file path. Use '*' to match all files."
+					},
+					"match_case": {
+						"type": "boolean",
+						"description": "When true, matching is case-sensitive.",
+						"default": false
+					},
+					"match_whole_word": {
+						"type": "boolean",
+						"description": "When true, only whole-word matches are allowed.",
+						"default": true
+					},
+					"use_regex": {
+						"type": "boolean",
+						"description": "When true, pattern is treated as a regular expression.",
+						"default": false
 					},
 					"emoji": {
 						"type": "string",

@@ -11,6 +11,9 @@ const DEFAULT_CONFIG = `{
 		{
 			"name": "Path Panda",
 			"pattern": "*",
+			"match_case": false,
+			"match_whole_word": true,
+			"use_regex": false,
 			"emoji": "🐼",
 			"color": "#ffffff",
 			"background_color": "statusBarItem.prominentBackground"
@@ -37,6 +40,31 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(output);
 	const logInfo = (message: string) => {
 		output.appendLine(message);
+	};
+	const escapeRegex = (value: string) =>
+		value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	const buildMatcher = (options: {
+		rawPattern: string;
+		matchCase: boolean;
+		matchWholeWord: boolean;
+		useRegex: boolean;
+		name: string;
+	}) => {
+		if (options.rawPattern === "*") {
+			return new RegExp(".*", options.matchCase ? "" : "i");
+		}
+		const source = options.useRegex
+			? options.rawPattern
+			: escapeRegex(options.rawPattern);
+		const wrapped = options.matchWholeWord ? `\\b(?:${source})\\b` : source;
+		try {
+			return new RegExp(wrapped, options.matchCase ? "" : "i");
+		} catch {
+			logInfo(
+				`Ignored invalid pattern "${options.rawPattern}" for "${options.name || "(unnamed)"}".`,
+			);
+			return null;
+		}
 	};
 
 	const configUri = vscode.Uri.joinPath(
@@ -82,6 +110,9 @@ export async function activate(context: vscode.ExtensionContext) {
 		let patterns: Array<{
 			name?: string;
 			pattern?: string;
+			match_case?: boolean;
+			match_whole_word?: boolean;
+			use_regex?: boolean;
 			emoji?: string;
 			color?: string;
 			background_color?: string;
@@ -115,15 +146,23 @@ export async function activate(context: vscode.ExtensionContext) {
 			if (!rawPattern.length) {
 				return false;
 			}
-			if (rawPattern === "*") {
-				return true;
-			}
-			try {
-				const re = new RegExp(rawPattern);
-				return re.test(filePath);
-			} catch {
-				return false;
-			}
+			const matchCase =
+				typeof p.match_case === "boolean" ? p.match_case : false;
+			const matchWholeWord =
+				typeof p.match_whole_word === "boolean"
+					? p.match_whole_word
+					: true;
+			const useRegex =
+				typeof p.use_regex === "boolean" ? p.use_regex : false;
+			const name = typeof p.name === "string" ? p.name.trim() : "";
+			const matcher = buildMatcher({
+				rawPattern,
+				matchCase,
+				matchWholeWord,
+				useRegex,
+				name,
+			});
+			return matcher ? matcher.test(filePath) : false;
 		});
 
 		if (!matches.length) {

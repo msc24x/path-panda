@@ -15,7 +15,10 @@ The file is named `.path-panda.json` and supports comments and trailing commas. 
     {
       "name": "Path Panda",
       "pattern": "*",
-      "emoji": "PP",
+      "match_case": false,
+      "match_whole_word": true,
+      "use_regex": false,
+      "emoji": "🐼",
       "color": "#ffffff",
       "background_color": "statusBarItem.prominentBackground"
     }
@@ -26,7 +29,10 @@ The file is named `.path-panda.json` and supports comments and trailing commas. 
 ## Pattern fields
 
 - `name` (string): Label displayed in the status bar next to the emoji.
-- `pattern` (string): Regular expression used to match the full file path. The special value `*` matches any file.
+- `pattern` (string): Pattern matched against the full file path. The special value `*` matches any file.
+- `match_case` (boolean, default `false`): When true, matching is case-sensitive.
+- `match_whole_word` (boolean, default `true`): When true, only whole-word matches are allowed.
+- `use_regex` (boolean, default `false`): When true, `pattern` is treated as a regular expression.
 - `emoji` (string): Any emoji or short text label to prepend to the name.
 - `color` (string): Hex color for the text. Valid forms: `#rgb`, `#rrggbb`, `#rrggbbaa`.
 - `background_color` (string): Optional status bar background theme token. See the allowed values below.

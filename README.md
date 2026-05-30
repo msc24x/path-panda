@@ -23,7 +23,10 @@ Example configuration:
     {
       "name": "Path Panda",
       "pattern": "*",
-      "emoji": "PP",
+      "match_case": false,
+      "match_whole_word": true,
+      "use_regex": false,
+      "emoji": "🐼",
       "color": "#ffffff",
       "background_color": "statusBarItem.prominentBackground"
     }
